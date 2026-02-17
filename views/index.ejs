@@ -400,51 +400,53 @@
 
   <h2 class="total-count">Total Countries: <%=total%>
   </h2>
-  <script>
-    // const visitedCountries = "<%= countries %>".split(",");
-    const visitedCountries = <%- JSON.stringify(countries) %>;
-
-    function removeCountry(code) {
-      fetch("/remove", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-          countryCode: code,
-          userId: <%= currentUser.id%>,
-        })
-
-      })
-      .then(res => {
-        if(!res.ok) throw new Error("Failed");
-        return res.json();
-      })
-      .then(() => window.location.reload())
-      .catch(err => console.error(err));
-    }
-
-    visitedCountries.forEach(code => {
-      const el = document.getElementById(code);
-
-      if(el) {
-        el.style.fill = "<%= color %>";
-        el.style.cursor = "pointer";
-        el.classList.add("visited");
-        el.style.pointerEvents = "all";
-
-        el.addEventListener("click", () => {
-          console.log("Clicked", code);
-          removeCountry(code);
+  <% if(currentUser) { %>
+      <script>
+        // const visitedCountries = "<%= countries %>".split(",");
+        const visitedCountries = <%- JSON.stringify(countries) %>;
+    
+        function removeCountry(code) {
+          fetch("/remove", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              countryCode: code,
+              userId: <%= currentUser.id%>,
+            })
+    
+          })
+          .then(res => {
+            if(!res.ok) throw new Error("Failed");
+            return res.json();
+          })
+          .then(() => window.location.reload())
+          .catch(err => console.error(err));
+        }
+    
+        visitedCountries.forEach(code => {
+          const el = document.getElementById(code);
+    
+          if(el) {
+            el.style.fill = "<%= color %>";
+            el.style.cursor = "pointer";
+            el.classList.add("visited");
+            el.style.pointerEvents = "all";
+    
+            el.addEventListener("click", () => {
+              console.log("Clicked", code);
+              removeCountry(code);
+            });
+          }
+          
         });
-      }
-      
-    });
-
-    if (window.location.search.includes("error=")) {
-      window.history.replaceState({}, document.title, "/");
-    }
-  </script>
+    
+        if (window.location.search.includes("error=")) {
+          window.history.replaceState({}, document.title, "/");
+        }
+      </script>
+  <% } %>
 </body>
 
 </html>

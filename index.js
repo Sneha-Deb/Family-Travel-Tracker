@@ -36,6 +36,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
+
+/* Basic Production Protection */
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production") {
+    if (req.method !== "GET") {
+      const secret = req.headers["x-admin-key"];
+      if (secret !== process.env.ADMIN_KEY) {
+        return res.status(403).send("Demo Mode - Write access disabled");
+      }
+    }
+  }
+  next();
+});
+
 let currentUserId = 1;
 
 async function checkVisited(userId) {

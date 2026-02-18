@@ -36,10 +36,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static("public"));
-
 /* Basic Production Protection */
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === "production") {

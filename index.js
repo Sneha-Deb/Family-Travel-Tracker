@@ -13,7 +13,7 @@ dotenv.config({
   path: path.resolve(__dirname, ".env"),
 });
 
-const port = process.env.APP_PORT || 3000;
+const port = process.env.PORT || process.env.APP_PORT || 3000;
 
 const db = new pg.Pool({
   user: process.env.DB_USER,

@@ -461,6 +461,7 @@ button {
 .action-buttons {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: nowrap;
   gap: 10px;
@@ -500,5 +501,31 @@ button {
 @media screen and (max-width: 767px) {
   .tab-view-theme-5 > input:checked + label:after {
     display: none;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 10px;
+    width: 100vw;
+    margin: 10px 0;
+  }
+
+  .add-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .country-name {
+    position: relative;
+    width: auto;
+    max-width: 100%;
+    margin: 0px 7px 0px 0px;
+    z-index: 2;
   }
 }

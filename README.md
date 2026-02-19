@@ -113,6 +113,34 @@ JavaScript
 
 ---
 
+## 🔐 Production Safety (Demo Mode Protection)
+
+When deployed publicly (e.g., on Render), the application runs in a **protected demo mode** to prevent unauthorized write operations.
+
+In production:
+
+- All `POST`, `DELETE`, and modification routes are protected.
+- Only `GET` requests are publicly accessible.
+- Write access requires a secret admin key sent in request headers.
+
+### How It Works
+
+- When `NODE_ENV=production`, write routes are blocked.
+- Only requests containing the correct `x-admin-key` header can modify data.
+- This prevents public users from adding/deleting data on the live demo.
+
+### Environment Variables Required in Production
+
+`NODE_ENV=production ADMIN_KEY=your_secure_random_string`
+
+This ensures:
+
+- The live demo remains stable.
+- Recruiters can explore the app safely.
+- Database integrity is protected without implementing full authentication yet.
+
+---
+
 ## 🛡️ Future Enhancements
 
 - [ ] **Statistics Page:** Display the percentage of the world each family member has covered.
